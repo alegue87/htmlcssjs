@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini structure</title>
+    <style>
+        body, html { 
+            height: 100%; /* for maximize the content to window */
+            border: 0px; padding: 0px; margin: 0px
+        }
+        .wrapper { 
+            height:100%; /* maximize to parent */ 
+            
+            /* 2 column x 3 lines */
+            display:grid; 
+            grid-template-columns: minmax(250px, 250px) min(800px, 80%); 
+            grid-template-rows:100% ;
+        }
+        aside { 
+            grid-row:1; grid-column:1; 
+            background-color:brown;
+        }
+        section { 
+            grid-row:1; grid-column:2/4; 
+            background-color:blue;
+        }
+
+        section article {
+            float:left;
+            width:200px;
+            background-color: beige;
+            margin-left:10px;
+            margin-top:10px;
+        }
+        section article > * {
+            padding:5px;
+        }
+
+        article header { background-color:blueviolet}
+
+        .wrapper > * { padding: 5px }
+    </style>
+</head>
+<body class="wrapper">
+    <aside>
+        aside
+    </aside>
+    <section>
+        <!--article>
+            <header>
+                header article 1
+            </header>
+            <div>
+                <p>prova</p>
+            </div>
+            <footer>
+                footer
+            </footer>
+        </article>
+
+        <article>
+            <header>
+                header article 2
+            </header>
+            <div>
+                <p>prova</p>
+            </div>
+            <footer>
+                footer
+            </footer>
+        </article>
+
+        <article>
+            <header>
+                header article 3
+            </header>
+            <div>
+                <p>prova</p>
+            </div>
+            <footer>
+                footer
+            </footer>
+        </article-->
+    </section>
+</body>
+</html>

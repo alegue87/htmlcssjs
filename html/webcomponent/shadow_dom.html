@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Component</title>
+    <style>
+        whats-up {
+            --button-bg: #f06d06;
+        }
+        button {
+            /* border doesn't cascade so this won't effect the button in the Shadow DOM */
+            border: 4px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <whats-up></whats-up>
+    <script>
+        const template = document.createElement('template');
+        template.innerHTML = `
+        <style>
+        button {
+            /* Settable from outside, but has fallback */
+            background: var(--button-bg, #1E88E5);
+            
+            color: white;
+            padding: 2rem 4rem;
+            border: 0;
+            font-size: 1.5rem;
+        }
+        </style>
+        <button>Sup?</button>`;
+
+        class WhatsUp extends HTMLElement {
+        
+            connectedCallback() {
+                this.attachShadow({mode: 'open'});
+                this.shadowRoot.appendChild(template.content.cloneNode(true));
+                const button = this.shadowRoot.querySelector("button");
+                button.addEventListener("click", this.handleClick);
+            }
+            
+            handleClick(e) {
+                alert("Sup?");
+            }
+        
+        }
+
+        window.customElements.define('whats-up', WhatsUp);
+    </script>
+</body>
+</html>

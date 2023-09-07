@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+  <template name=developer>
+    <h1>{nickname}</h1>
+  </template>
+
+  <!--script name=polyfill src=//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.0.0/webcomponents-hi-ce.js></script-->
+  <script src=//unpkg.com/snuggsi></script>
+  <script>
+  
+    const template = Template(`developer`)
+    const context  = { nickname: 'That Beast' }
+    
+    template.bind (context)
+  
+  </script>
+  
+</body>
+</html>

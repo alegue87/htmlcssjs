@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic structure</title>
+    <style>
+        body, html { 
+            height: 100%; /* for maximize the content to window */
+            border: 0px; padding: 0px; margin: 0px
+        }
+        .wrapper { 
+            height:100%; /* maximize to parent */ 
+            
+            /* 2 column x 3 lines */
+            display:grid; 
+            grid-template-columns: minmax(250px, 250px) min(800px, 80%); 
+            grid-template-rows:100px 80% ;
+        }
+
+        header { 
+            grid-row:1; grid-column:1/4; 
+            background-color:green 
+        }
+        aside { 
+            grid-row:2; grid-column:1; 
+            background-color:brown;
+        }
+        section { 
+            grid-row:2; grid-column:2/4; 
+            background-color:blue 
+        }
+        footer { 
+            grid-row:3; grid-column: 1/4; 
+            background-color: rosybrown }
+
+        article header { background-color:blueviolet}
+
+        .wrapper > * { padding: 5px }
+    </style>
+</head>
+<body class="wrapper">
+    <header>
+        header
+        <nav>
+            <a href="#">link</a>
+        </nav>
+    </header>
+    <aside>
+        aside
+    </aside>
+    <section>
+        <article>
+            <header>
+                header article
+            </header>
+        </article>
+    </section>
+    <footer>
+        footer
+    </footer>
+</body>
+</html>

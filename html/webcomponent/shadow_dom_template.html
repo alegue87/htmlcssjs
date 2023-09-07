@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Component</title>
+    <style>
+        whats-up {
+            --button-bg: #f06d06;
+        }
+        button {
+            /* border doesn't cascade so this won't effect the button in the Shadow DOM */
+            border: 4px solid black;
+        }
+    </style>
+</head>
+<body>
+    <template name="t1">
+        <style>
+        button {
+            /* Settable from outside, but has fallback */
+            background: var(--button-bg, #1E88E5);
+            
+            color: white;
+            padding: 2rem 4rem;
+            border: 0;
+            font-size: 1.5rem;
+        }
+        </style>
+        <button attr="bau">Sup?</button>
+    </template>
+    
+    <whats-up attr="ciao"></whats-up>
+
+    <script>
+        const template = document.querySelector('template');
+       
+
+        class WhatsUp extends HTMLElement {
+            // proprietà accessibili con this.
+            // p1 = 'abc'
+            // p2
+            //...
+
+            constructor(){
+                super()
+            }
+
+            connectedCallback() {
+                this.attachShadow({mode: 'open'});
+                this.shadowRoot.appendChild(template.content.cloneNode(true));
+                
+                const button = this.shadowRoot.querySelector("button");
+
+                button.addEventListener("click", this.handleClick);
+                button.params = { attr: this.getAttribute('attr') } // pass parameter to handle
+            }
+            
+            handleClick(e) {
+                alert(e.target.params.attr);
+                alert(this.getAttribute`attr`) // uguale a this.getAttribute('attr')
+            }
+        
+        }
+
+        window.customElements.define('whats-up', WhatsUp);
+    </script>
+</body>
+</html>

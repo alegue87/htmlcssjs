@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<!-- 👇 Declaration --------------------------->
+
+  <hello-world>
+
+    Hello {planet}
+  
+    <button onclick=speak>Greet</button>
+  </hello-world>
+  
+  
+  <script src=//unpkg.com/snuggsi></script>
+  <script>
+  
+  // 👇 Definition -------------------------------
+  
+  Element `hello-world`
+  
+  // 👇 Description ------------------------------
+  
+  (class extends HTMLElement {
+  
+    get planet () // property token
+      // "✨ automagic" token binding
+      { return 'world 🌎' }
+  
+    onclick (e) { // event handler
+      // "✨ automagic" event registration
+      alert(`You clicked on ${e.target.tagName}`)
+    }
+    
+    speak(e) { // bound event handler
+      e.preventDefault()
+      alert('One small step...')
+    }
+  })
+  
+  </script>
+  
+</body>
+</html>
