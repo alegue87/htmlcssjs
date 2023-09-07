@@ -20,7 +20,7 @@ class Leaf extends HTMLLIElement {
     init(name, addState=true){
         this.textContent = name
         if(addState){
-            this.classList.add('state', 'hide')
+            this.classList.add('hide')
         }
     }
 
@@ -34,14 +34,7 @@ class Leaf extends HTMLLIElement {
         for( let i = 0 ; i < childsLeaf.length ; i++ ){
             const leafClasses = childsLeaf.item(i).classList
             
-            if(leafClasses.contains('hide')){
-                leafClasses.remove('hide')
-                leafClasses.add('grow')
-            }
-            else {
-                leafClasses.remove('grow')
-                leafClasses.add('hide')
-            }
+            leafClasses.toggle('hide')
             console.log(childsLeaf.item(i))
         }
         
