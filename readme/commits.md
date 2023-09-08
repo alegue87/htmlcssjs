@@ -56,3 +56,15 @@ const branch = this.that.querySelector('ul')
 <figure><img src="../.gitbook/assets/Schermata del 2023-09-08 14-56-00.png" alt=""><figcaption></figcaption></figure>
 
 In pratica Plants, Rose, rose1 ecc.. sono Leaf (LI) contenenti Branch (UL) che a loro volta contengo Leaf... L'apertura avviene sul click del LeafButton che prende il Branch del padre che lo contiene e tutti Leaf childreen.
+
+
+
+***
+
+[Visualizzazione tree ricorsivo](https://github.com/alegue87/htmlcssjs/commit/0170e7798c825502398c1a9cd16bfd85c8f17ef3)
+
+Vengono presi dei dati da un oggetto javascript `treeData` e di volta in volta aggiunte Leaf al root (branch).
+
+La createLeaf, guarda se deve creare una Leaf apicale ( se si la crea e ritorna ).
+
+Per ogni leaf passata richiama se stessa e pone il risultato, cioè una (sub) Leaf, in un nuovo Branch quindi lo aggiunge alla nuova Leaf di base e ritorna.
