@@ -68,3 +68,31 @@ Vengono presi dei dati da un oggetto javascript `treeData` e di volta in volta a
 La createLeaf, guarda se deve creare una Leaf apicale ( se si la crea e ritorna ).
 
 Per ogni leaf passata richiama se stessa e pone il risultato, cioè una (sub) Leaf, in un nuovo Branch quindi lo aggiunge alla nuova Leaf di base e ritorna.
+
+
+
+***
+
+[Custom Event per la gestione dell'url](https://github.com/alegue87/htmlcssjs/commit/b728f6d9e8f1a173e65704b90a73af9259cad964)
+
+\
+Viene generato un evento **'changed-location'** con info il nome della rotta scelta e l'url ( come esempio viene inserito anche un listener ).
+
+```javascript
+// Emissione evento
+const changeLocation = new CustomEvent('changed-location', { 
+            detail: {name: this.name, href: url}
+})
+// Listener
+window.addEventListener('changed-location', (e) => {
+            console.log(`Changed location, '${e.detail.name}' '${e.detail.href}'`)
+})
+```
+
+Da notare **'detail'** che è il nodo di scambio dati.
+
+Forse è possibile creare un canale di comunicazione tra componenti attraverso l'utilizzo di eventi generando una sorta di api.&#x20;
+
+
+
+***
