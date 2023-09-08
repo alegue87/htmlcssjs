@@ -17,6 +17,34 @@
 <body>
     
     <template name="tree">
+        <script>
+            const treeData = {
+                'Plants': {
+                    'url': '',
+                    'Rose': {
+                        'url': '',
+                        'Rose 1': { 'url': ''},
+                        'Rose 2': { 'url': ''},
+                    },
+                    'Tulip': {
+                        'Tulip 1': { 'url': ''},
+                        'Tulip 2': { 'url': ''},
+                    }
+                },
+                'Animals': {
+                    'url': '',
+                    'Mammals': {
+                        'url': '',
+                        'Elephant': { 'url': ''},
+                        'Mouse': { 'url': ''},
+                    },
+                    'Reptile': {
+                        'url': '',
+                        'Lizard': { 'url': ''},
+                    }
+                }
+            } 
+        </script>
         <link rel="stylesheet" href="./pure.css"/>
         <ul class="tree"></ul>
     </template>

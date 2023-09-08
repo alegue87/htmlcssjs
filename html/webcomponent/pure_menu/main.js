@@ -76,39 +76,91 @@ class Tree extends HTMLElement {
         super()
     }
 
+    /**
+     * indica se leaf è apicale
+     * 
+     * @type {Object} leaf
+     * 
+     * @return {Boolean}
+     */
+    isLastLeaf(leaf){
+        for( let subLeaf in leaf ){
+            // c'è un altra leaf in più all'url?
+            if(subLeaf != 'url'){
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * Crea leaf
+     * 
+     * @type {string} name - Nome della Leaf
+     * @type {Object} leaf
+     * @type {boolean} hide - nasconde / visualizza leaf
+     * 
+     * @return {Leaf} Elemento Leaf
+     */
+    createLeaf(name, leaf, hide=true){
+        let newLeaf
+        newLeaf = new Leaf()
+        newLeaf.setName(name, hide)
+        if(this.isLastLeaf(leaf)) {
+            return newLeaf
+        }
+
+        let branch = new Branch()
+        for( let subLeafName in leaf ){
+            // salta url per ora
+            if(subLeafName=='url'){
+                continue
+            }
+            branch.append(this.createLeaf(subLeafName, leaf[subLeafName]))
+        }
+        newLeaf.append(branch)
+        return newLeaf
+    }
+
     connectedCallback() {
         this.attachShadow({mode: 'open'});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         
         const root = this.shadowRoot.querySelector("ul");
-
-        const plantsLeaf = new Leaf()
-        var hide
-        plantsLeaf.setName('Plants', hide=false)
-        //let animals = new Leaf().init('Animals')
-
-        let plantsBranch = new Branch()
-        plantsLeaf.appendChild(plantsBranch)
-
-        const roseLeaf = new Leaf()
-        roseLeaf.setName('Rose')
-        const roseBranch = new Branch()
-        const rose1 = new Leaf()
-        rose1.setName `rose 1` // alternativa 
-        const rose2 = new Leaf()
-        rose2.setName('rose 2')
-        roseBranch.append(rose1)
-        roseBranch.append(rose2)
-        roseLeaf.append(roseBranch)
-
-        const tulipLeaf = new Leaf()
-        tulipLeaf.setName('Tulip')
         
-        plantsBranch.appendChild(roseLeaf)
-        plantsBranch.appendChild(tulipLeaf)
+        let hide
+        for( let leafName in treeData){
+            root.append(this.createLeaf(leafName, treeData[leafName], hide=false))
+        }
+        
+
+        //const plantsLeaf = new Leaf()
+        //var hide
+        //plantsLeaf.setName('Plants', hide=false)
+        ////let animals = new Leaf().init('Animals')
+
+        //let plantsBranch = new Branch()
+        //plantsLeaf.appendChild(plantsBranch)
+
+        //const roseLeaf = new Leaf()
+        //roseLeaf.setName('Rose')
+        //const roseBranch = new Branch()
+        //const rose1 = new Leaf()
+        //rose1.setName `rose 1` // alternativa 
+        //const rose2 = new Leaf()
+        //rose2.setName('rose 2')
+        //roseBranch.append(rose1)
+        //roseBranch.append(rose2)
+        //roseLeaf.append(roseBranch)
+
+        //const tulipLeaf = new Leaf()
+        //tulipLeaf.setName('Tulip')
+        //
+        //plantsBranch.appendChild(roseLeaf)
+        //plantsBranch.appendChild(tulipLeaf)
 
 
-        root.appendChild(plantsLeaf)
+        //root.appendChild(plantsLeaf)
         
         /**
          * per passare dei parametri a root basta fare:
