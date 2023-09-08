@@ -15,6 +15,4 @@ layout:
 
 # htmlcssjs
 
-
-sem
 ***
