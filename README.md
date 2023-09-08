@@ -1,5 +1,16 @@
 ---
 description: test&co
+layout:
+  title:
+    visible: true
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # htmlcssjs
@@ -38,4 +49,5 @@ La classe grow contiene anche una animazione che viene attivata nel momento in c
 ```
 
 sem
+
 ***
