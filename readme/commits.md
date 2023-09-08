@@ -1,7 +1,3 @@
----
-description: lista
----
-
 # Commits
 
 [variazione di stato di un elemento con animazione css](https://github.com/alegue87/htmlcssjs/commit/38089b4c021c4009a73801d2ff470f6419347974)
@@ -34,3 +30,29 @@ La classe grow contiene anche una animazione che viene attivata nel momento in c
 }
 
 ```
+
+***
+
+[Inserito button per ogni leaf](https://github.com/alegue87/htmlcssjs/commit/4299f64c778aa1405452662d578b2e9106dc46ba)
+
+Per evitare di aprire/chiudere l'intera alberatura anche con la selezione di leaf lontane dalla base, viene inserito un button che limita il click.
+
+La creazione del button, al momento avviene al setName del leaf ( forse è meglio al momento del mount, connectedCallback ), comunque al click sul button vengono aperte/chiuse tutti i child del leaf che contiene il button stesso.
+
+```javascript
+// in connectedCallback di Leaf
+this.leafButton.that = this
+this.leafButton.addEventListener('click', this.handleClick)
+```
+
+```javascript
+// in handleClick di Leaf
+const branch = this.that.querySelector('ul')
+// toggle dei children del branch ( leaf )
+```
+
+&#x20;
+
+<figure><img src="../.gitbook/assets/Schermata del 2023-09-08 14-56-00.png" alt=""><figcaption></figcaption></figure>
+
+In pratica Plants, Rose, rose1 ecc.. sono Leaf (LI) contenenti Branch (UL) che a loro volta contengo Leaf... L'apertura avviene sul click del LeafButton che prende il Branch del padre che lo contiene e tutti Leaf childreen.
