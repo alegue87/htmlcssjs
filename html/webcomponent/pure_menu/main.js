@@ -6,11 +6,13 @@ class Branch extends HTMLUListElement{
     }
 }
 class LeafButton extends HTMLButtonElement {
+    url = ''
+    name = ''
     constructor(){
         super()
     }
     setName(name){
-        this.textContent = name
+        this.textContent = this.name = name
     }
 }
 
@@ -20,6 +22,7 @@ class Leaf extends HTMLLIElement {
 
     constructor(){
         super()
+        this.leafButton = new LeafButton()
     }
     
     /**
@@ -33,9 +36,12 @@ class Leaf extends HTMLLIElement {
         if(hide){
             this.classList.add('hide')
         }
-        this.leafButton = new LeafButton()
         this.leafButton.setName(name)
         this.appendChild(this.leafButton)
+    }
+
+    setUrl(url){
+        this.leafButton.setUrl(url)
     }
 
     connectedCallback(){
@@ -47,11 +53,24 @@ class Leaf extends HTMLLIElement {
 
     handleClick(e){
         const branch = this.that.querySelector('ul')
+        const url = e.target.getAttribute('url')
+        if(url) {
+            //window.location.href = url
+            /**
+             * Emissione evento 'change-location'
+             * 
+             * Nota: la chiave 'detail' è la base di accesso all'oggetto custom
+             */
+            const changeLocation = new CustomEvent('changed-location', { detail: {name: this.name, href: url}})
+            window.dispatchEvent(changeLocation)
+        }
         if(!branch) return
 
         const childsLeaf = branch.children
 
         for( let i = 0 ; i < childsLeaf.length ; i++ ){
+            // item(i) è un modo per accedere ad una collection HTML
+            // senza prendere altri campi
             const leaf = childsLeaf.item(i)
             
             leaf.classList.toggle('hide')
@@ -107,6 +126,7 @@ class Tree extends HTMLElement {
         newLeaf = new Leaf()
         newLeaf.setName(name, hide)
         if(this.isLastLeaf(leaf)) {
+            newLeaf.leafButton.setAttribute('url', leaf['url'])
             return newLeaf
         }
 
@@ -114,6 +134,7 @@ class Tree extends HTMLElement {
         for( let subLeafName in leaf ){
             // salta url per ora
             if(subLeafName=='url'){
+                newLeaf.leafButton.setAttribute('url', leaf['url'])
                 continue
             }
             branch.append(this.createLeaf(subLeafName, leaf[subLeafName]))
@@ -170,6 +191,14 @@ class Tree extends HTMLElement {
          * per accedere al valore.
          */
         root.addEventListener("click", this.handleClick);
+
+        /**
+         * Event listener per il cambio di location
+         */
+        window.addEventListener('changed-location', (e) => {
+            console.log(`Changed location, '${e.detail.name}'  '${e.detail.href}'`)
+            window.location.href = e.detail.href
+        })
     }
 
     attributeChangedCallback(name, oldVal, newVal){
